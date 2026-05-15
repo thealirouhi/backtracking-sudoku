@@ -7,6 +7,8 @@ void readBoard(int board[9][9]);
 // Prints the Sudoku grid to standard output
 void printBoard(int board[9][9]);
 
+bool isBoardValid(int board[9][9]);
+
 // Checks if placing num at (row, col) is valid
 bool isValid(int board[9][9], int row, int col, int num);
 
