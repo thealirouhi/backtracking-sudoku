@@ -13,6 +13,14 @@ bool isValid(int board[9][9], int row, int col, int num);
 // Backtracking solver
 bool solve(int board[9][9]);
 
+void readBoard(int board[9][9]) {
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            cin >> board[i][j];
+        }
+    }
+}
+
 int main() {
     int board[9][9];
 
