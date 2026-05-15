@@ -10,22 +10,31 @@ void printBoard(int board[9][9]);
 // Checks if placing num at (row, col) is valid
 bool isValid(int board[9][9], int row, int col, int num);
 
+bool findEmpty(int board[9][9], int &row, int &col);
+
 // Backtracking solver
 bool solve(int board[9][9]);
 
-void readBoard(int board[9][9]) {
-    for (int i = 0; i < 9; i++) {
-        for (int j = 0; j < 9; j++) {
+void readBoard(int board[9][9])
+{
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 9; j++)
+        {
             cin >> board[i][j];
         }
     }
 }
 
-void printBoard(int board[9][9]) {
-    for (int i = 0; i < 9; i++) {
-        for (int j = 0; j < 9; j++) {
+void printBoard(int board[9][9])
+{
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 9; j++)
+        {
             cout << board[i][j];
-            if (j < 8) {
+            if (j < 8)
+            {
                 cout << " ";
             }
         }
@@ -33,23 +42,30 @@ void printBoard(int board[9][9]) {
     }
 }
 
-bool isValid(int board[9][9], int row, int col, int num) {
+bool isValid(int board[9][9], int row, int col, int num)
+{
     // check row
-    for (int j = 0; j < 9; j++) {
-        if (board[row][j] == num) return false;
+    for (int j = 0; j < 9; j++)
+    {
+        if (board[row][j] == num)
+            return false;
     }
 
     // check column
-    for (int i = 0; i < 9; i++) {
-        if (board[i][col] == num) return false;
+    for (int i = 0; i < 9; i++)
+    {
+        if (board[i][col] == num)
+            return false;
     }
 
     // check 3x3 box
     int startRow = row - row % 3;
     int startCol = col - col % 3;
 
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
             if (board[startRow + i][startCol + j] == num)
                 return false;
         }
@@ -58,35 +74,37 @@ bool isValid(int board[9][9], int row, int col, int num) {
     return true;
 }
 
-bool solve(int board[9][9]) {
-
-    int row = -1, col = -1;
-    bool emptyFound = false;
-
-    // 1. find empty cell
-    for (int i = 0; i < 9 && !emptyFound; i++) {
-        for (int j = 0; j < 9; j++) {
-            if (board[i][j] == 0) {
-                row = i;
-                col = j;
-                emptyFound = true;
-                break;
-            }
+bool findEmpty(int board[9][9], int &row, int &col)
+{
+    for (row = 0; row < 9; row++)
+    {
+        for (col = 0; col < 9; col++)
+        {
+            if (board[row][col] == 0)
+                return true;
         }
     }
+    return false;
+}
 
-    // 2. base case: no empty cells
-    if (!emptyFound) {
+bool solve(int board[9][9])
+{
+    // 1. find empty
+    int row, col;
+
+    if (!findEmpty(board, row, col))
         return true;
-    }
 
-    // 3. try digits
-    for (int num = 1; num <= 9; num++) {
-        if (isValid(board, row, col, num)) {
+    // 2. try digits
+    for (int num = 1; num <= 9; num++)
+    {
+        if (isValid(board, row, col, num))
+        {
 
             board[row][col] = num;
 
-            if (solve(board)) {
+            if (solve(board))
+            {
                 return true;
             }
 
@@ -99,14 +117,18 @@ bool solve(int board[9][9]) {
     return false;
 }
 
-int main() {
+int main()
+{
     int board[9][9];
 
     readBoard(board);
 
-    if (solve(board)) {
+    if (solve(board))
+    {
         printBoard(board);
-    } else {
+    }
+    else
+    {
         cout << "No solution exists";
     }
 
