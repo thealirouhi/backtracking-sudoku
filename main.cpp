@@ -59,7 +59,44 @@ bool isValid(int board[9][9], int row, int col, int num) {
 }
 
 bool solve(int board[9][9]) {
-    return true;
+
+    int row = -1, col = -1;
+    bool emptyFound = false;
+
+    // 1. find empty cell
+    for (int i = 0; i < 9 && !emptyFound; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (board[i][j] == 0) {
+                row = i;
+                col = j;
+                emptyFound = true;
+                break;
+            }
+        }
+    }
+
+    // 2. base case: no empty cells
+    if (!emptyFound) {
+        return true;
+    }
+
+    // 3. try digits
+    for (int num = 1; num <= 9; num++) {
+        if (isValid(board, row, col, num)) {
+
+            board[row][col] = num;
+
+            if (solve(board)) {
+                return true;
+            }
+
+            // backtrack
+            board[row][col] = 0;
+        }
+    }
+
+    // 4. no valid number works
+    return false;
 }
 
 int main() {
