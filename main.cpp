@@ -21,6 +21,18 @@ void readBoard(int board[9][9]) {
     }
 }
 
+void printBoard(int board[9][9]) {
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            cout << board[i][j];
+            if (j < 8) {
+                cout << " ";
+            }
+        }
+        cout << "\n";
+    }
+}
+
 int main() {
     int board[9][9];
 
