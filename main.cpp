@@ -33,6 +33,10 @@ void printBoard(int board[9][9]) {
     }
 }
 
+bool solve(int board[9][9]) {
+    return true;
+}
+
 int main() {
     int board[9][9];
 
