@@ -42,6 +42,28 @@ void printBoard(int board[9][9])
     }
 }
 
+bool isBoardValid(int board[9][9])
+{
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 9; j++)
+        {
+            if (board[i][j] != 0)
+            {
+                int temp = board[i][j];
+                board[i][j] = 0;
+                if (!isValid(board, i, j, temp))
+                {
+                    board[i][j] = temp;
+                    return false;
+                }
+                board[i][j] = temp;
+            }
+        }
+    }
+    return true;
+}
+
 bool isValid(int board[9][9], int row, int col, int num)
 {
     // check row
@@ -123,7 +145,11 @@ int main()
 
     readBoard(board);
 
-    if (solve(board))
+    if (!isBoardValid(board))
+    {
+        cout << "No solution exists";
+    }
+    else if (solve(board))
     {
         printBoard(board);
     }
